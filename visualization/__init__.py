@@ -29,9 +29,10 @@ def render(tokens,
             allen=False, 
             huggingface=False, 
             proref=False,
-            jupyter=True):
+            jupyter=True,
+            get_html=True):
 
-    html = to_html(tokens, clusters)
+    html = to_html(tokens, clusters, get_html)
 
     if jupyter:
         display(HTML(html))
@@ -92,8 +93,9 @@ def labelled_pronoun(row):
 
     return tokens, clusters
     
-def to_html(tokens, clusters):
+def to_html(tokens, clusters, to_html):
     tree = transform_to_tree(tokens, clusters)
-    html = ''.join(span_wrapper(tree, 0))
-    html = '<div style="padding: 16px;">{}</div>'.format(html)
+    html = ''.join(span_wrapper(tree, 0, to_html))
+    if to_html:
+        html = '<div style="padding: 16px;">{}</div>'.format(html)
     return html

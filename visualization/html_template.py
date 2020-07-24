@@ -27,6 +27,7 @@ def transform_to_tree(tokens, clusters):
     def contains(span, index):
         return index >= span[0] and index <= span[1]
 
+
     inside_clusters = [{
         'cluster': -1,
         'contents': [],
@@ -64,21 +65,32 @@ def transform_to_tree(tokens, clusters):
 
     return inside_clusters[0]['contents']
 
+
+
 #This is the function that calls itself when we recurse over the span tree.
-def gen_elem(token, idx, depth):
-    if isinstance(token, dict) or isinstance(token, list):
-        return '<span key={} class="highlight {}" depth={} id={} onmouseover="handleHighlightMouseOver(this)" \
-                onmouseout="handleHighlightMouseOut(this)" labelPosition="left">\
-                <span class="highlight__label"><strong>{}</strong></span>\
-                <span class="highlight__content">{}</span></span>'.format(idx, 
-                                                                          get_highlight_color(token['cluster']), 
-                                                                          depth,
-                                                                          token['cluster'],
-                                                                          token['cluster'], 
-                                                                          ' '.join(span_wrapper(token['contents'], depth + 1)))
+def gen_elem(token, idx, depth, to_html):
+    if to_html:
+        if isinstance(token, dict) or isinstance(token, list):
+            return '<span key={} class="highlight {}" depth={} id={} onmouseover="handleHighlightMouseOver(this)" \
+                    onmouseout="handleHighlightMouseOut(this)" labelPosition="left">\
+                    <span class="highlight__label"><strong>{}</strong></span>\
+                    <span class="highlight__content">{}</span></span>'.format(idx, 
+                                                                              get_highlight_color(token['cluster']), 
+                                                                              depth,
+                                                                              token['cluster'],
+                                                                              token['cluster'], 
+                                                                              ' '.join(span_wrapper(token['contents'], depth + 1, to_html)))
+        else:
+            return '<span>{} </span>'.format(token)
+
     else:
-        return '<span>{} </span>'.format(token)
+        if isinstance(token, dict) or isinstance(token, list):
+        
+            return "[{}: {}]".format(token['cluster'],
+                                                ' '.join(span_wrapper(token['contents'], depth + 1, to_html)))
+        else:
+            return " {} ".format(token)
  
 # Wraps the tree representation into spans indicating cluster-wise depth
-def span_wrapper(tree, depth):
-      return [gen_elem(token, idx, depth) for idx, token in enumerate(tree)]
+def span_wrapper(tree, depth, to_html):
+      return [gen_elem(token, idx, depth, to_html) for idx, token in enumerate(tree)]

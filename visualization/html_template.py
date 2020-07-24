@@ -86,7 +86,7 @@ def gen_elem(token, idx, depth, to_html):
     else:
         if isinstance(token, dict) or isinstance(token, list):
         
-            return "cluster__{} {}".format(token['cluster'],
+            return "<<{} {}>>".format(token['cluster'],
                                                 ' '.join(span_wrapper(token['contents'], depth + 1, to_html)))
         else:
             return " {} ".format(token)

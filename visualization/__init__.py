@@ -32,6 +32,8 @@ def render(tokens,
             jupyter=True,
             get_html=True):
 
+    print ("We should be calling to_html now...")        
+
     html = to_html(tokens, clusters, get_html)
 
     if jupyter:
@@ -94,8 +96,12 @@ def labelled_pronoun(row):
     return tokens, clusters
     
 def to_html(tokens, clusters, to_html):
+  print ("to_html was called with tokens {} and clusters {}".format(tokens, clusters))
     tree = transform_to_tree(tokens, clusters)
-    html = ''.join(span_wrapper(tree, 0, to_html))
+    print ("tree = {}".format(tree)))
+    foo = span_wrapper(tree, 0, to_html)
+    print ("foo = {}".format(foo))
+    html = ''.join(foo)
     if to_html:
         html = '<div style="padding: 16px;">{}</div>'.format(html)
     return html

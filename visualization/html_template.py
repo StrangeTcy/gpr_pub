@@ -63,6 +63,7 @@ def transform_to_tree(tokens, clusters):
             inside_clusters.pop()
             inside_clusters[-1]['contents'].append(top_cluster)
 
+    print ("we should be returning {}".format(inside_clusters[0]['contents']))
     return inside_clusters[0]['contents']
 
 
@@ -93,4 +94,6 @@ def gen_elem(token, idx, depth, to_html):
  
 # Wraps the tree representation into spans indicating cluster-wise depth
 def span_wrapper(tree, depth, to_html):
-      return [gen_elem(token, idx, depth, to_html) for idx, token in enumerate(tree)]
+      stuff = [gen_elem(token, idx, depth, to_html) for idx, token in enumerate(tree)]
+      print ("span_wrapper is about to return {}".format(stuff)) 
+      return stuff

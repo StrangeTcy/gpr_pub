@@ -64,10 +64,14 @@ def transform_to_tree(tokens, clusters):
             inside_clusters[-1]['contents'].append(top_cluster)
 
     yoohoo = inside_clusters[0]['contents']
+    my_clusters = []
     for yoo in yoohoo:
-      print ("{} has type {}".format(yoo, type(yoo)))
+      # print ("{} has type {}".format(yoo, type(yoo)))
+      if isinstance(yoo, dict):
+        my_clusters.append(yoo)
+
     # print ("we should be returning {}".format(yoohoo))
-    return yoohoo
+    return [yoohoo, my_clusters]
 
 
 #This is the function that calls itself when we recurse over the span tree.

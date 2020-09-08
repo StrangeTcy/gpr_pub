@@ -97,11 +97,12 @@ def labelled_pronoun(row):
     
 def to_html(tokens, clusters, to_html):
   print ("to_html was called with tokens {} and clusters {}".format(tokens, clusters))
-  tree = transform_to_tree(tokens, clusters)
+  tree = transform_to_tree(tokens, clusters)[0]
+  my_clusters = transform_to_tree(tokens, clusters)[1]
   print ("tree = {}".format(tree))
   foo = span_wrapper(tree, 0, to_html)
   print ("foo = {}".format(foo))
   html = ''.join(foo)
   if to_html:
       html = '<div style="padding: 16px;">{}</div>'.format(html)
-  return html
+  return [html, my_clusters]

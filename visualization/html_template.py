@@ -101,5 +101,5 @@ def gen_elem(token, idx, depth, to_html):
 # Wraps the tree representation into spans indicating cluster-wise depth
 def span_wrapper(tree, depth, to_html):
       stuff = [gen_elem(token, idx, depth, to_html) for idx, token in enumerate(tree)]
-      print ("span_wrapper is about to return {}".format(stuff)) 
+      # print ("span_wrapper is about to return {}".format(stuff)) 
       return stuff

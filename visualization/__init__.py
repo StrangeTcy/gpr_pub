@@ -32,7 +32,7 @@ def render(tokens,
             jupyter=True,
             get_html=True):
 
-    print ("We should be calling to_html now...")        
+#     print ("We should be calling to_html now...")        
 
     html = to_html(tokens, clusters, get_html)
 
